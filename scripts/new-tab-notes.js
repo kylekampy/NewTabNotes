@@ -33,7 +33,7 @@ $(function() {
 		});
 	};
 
-	var datastore = new ThrottledDataStore(saveFunc, loadFunc, 500, 10000);
+	var datastore = new ThrottledDataStore(saveFunc, loadFunc, 500, 0);
 
 	var loadOp = function() {
 		datastore.load(NEW_TAB_NOTES_KEY).done(function(content) {
