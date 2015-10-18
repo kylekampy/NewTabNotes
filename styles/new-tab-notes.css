@@ -4,6 +4,22 @@ html, body {
 	height: 100%;
 }
 
+.editor-toolbar {
+	height: 50px;
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+}
+
 .CodeMirror {
-	height: 100%;
+	position: absolute;
+	top: 50px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 0px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }

@@ -6,7 +6,7 @@ $(function() {
 	simplemde = new SimpleMDE({
 		autoDownloadFontAwesome: false,
 		indentWithTabs: false,
-		lineWrapping: false,
+		lineWrapping: true,
 		spellChecker: false,
 		initialValue: "Loading...",
 		parsingConfig: {
@@ -18,6 +18,7 @@ $(function() {
 	var saveFunc = function(key, content, callback) {
 		var obj = {};
 		obj[key] = content;
+
 		chrome.storage.sync.set(obj, callback);
 	};
 
@@ -33,60 +34,44 @@ $(function() {
 		});
 	};
 
-	var datastore = new ThrottledDataStore(saveFunc, loadFunc, 500, 0);
+	var throttler = new Throttler(500, saveFunc)
 
-	var loadOp = function() {
+	var throttledSaveFunc = function(key, content, callback) {
+		return throttler.execute(key, content, callback);
+	};
+
+	var datastore = new Datastore(throttledSaveFunc, loadFunc);
+
+	var reloadContents = function() {
 		datastore.load(NEW_TAB_NOTES_KEY).done(function(content) {
 			simplemde.value(content)
 		});
 	};
-	loadOp(NEW_TAB_NOTES_KEY);
 
-	window.setInterval(function() {
-		loadOp(NEW_TAB_NOTES_KEY);
-	}, 5000);
+	reloadContents();
 
 	simplemde.codemirror.on("change", function(){
-	    datastore.save(simplemde.value());
+	    datastore.save(NEW_TAB_NOTES_KEY, simplemde.value());
+	});
+
+	var runningInterval;
+
+	simplemde.codemirror.on("focus", function() {
+		if (runningInterval) {
+			window.clearInterval(runningInterval);
+		}
+	});
+
+	simplemde.codemirror.on("blur", function() {
+		if (runningInterval) {
+			window.clearInterval(runningInterval);
+		}
+
+		runningInterval = window.setInterval(function() {
+			reloadContents();
+		}, 2500);
 	});
 });
-
-// var lastSaveTimestamp = 0;
-// var runningTimeout;
-
-// function save(textToSave, callback) {
-// 	lastSaveTimestamp = Date.now();
-
-// 	if (runningTimeout) {
-// 		window.clearTimeout(runningTimeout);
-// 	}
-
-// 	runningTimeout = window.setTimeout(function() {
-// 		var timeElapsed = Date.now() - lastSaveTimestamp;
-
-// 		if (timeElapsed >= 500) {
-// 			chrome.storage.sync.set({
-// 				newTabNotesContent: textToSave
-// 			}, callback);
-// 		}
-// 	}, 500);
-// }
-
-// function load(callback) {
-// 	var timeElapsedSinceSave = Date.now() - lastSaveTimestamp;
-
-// 	if (timeElapsedSinceSave > 15000) {
-// 		chrome.storage.sync.get("newTabNotesContent", function(result) {
-// 			var content = result.newTabNotesContent;
-
-// 			if (!content || content === "") {
-// 				content = welcomeText;
-// 			}
-
-// 			callback(content);
-// 		});
-// 	}
-// }
 
 var welcomeText = " \
 # Welcome to New Tab Notes! \n\n\
