@@ -4,12 +4,10 @@ module.exports = function(grunt) {
     	pkg: grunt.file.readJSON('package.json'),
     	clean: ['build', 'NewTabNotes.zip'],
     	jshint: {
-    		files: ['js/new-tab-notes.js'],
+    		files: ['scripts/*.js', "!scripts/*.min.js"],
     		options: {
-    			loopfunc: true,
     			globals: {
     				jQuery: true,
-    				console: true
     			}
     		}
     	},
@@ -21,7 +19,7 @@ module.exports = function(grunt) {
     			files: [
     			    {
     			    	expand: true,
-    			    	src: ['js/*.js'],
+    			    	src: ['scripts/*.js'],
     			    	dest: 'build/'
     			    }
     			]
