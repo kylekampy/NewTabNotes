@@ -14,7 +14,7 @@
     "16": "/images/icon16.png"
     },
   "chrome_url_overrides": {
-    "newtab": "html/new-tab-notes.html"
+    "newtab": "new-tab-notes.html"
   },
   "incognito": "split",
   "offline_enabled": true,

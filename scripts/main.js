@@ -1,9 +1,24 @@
-var simplemde;
-var datastore;
-var NEW_TAB_NOTES_KEY = "newTabNotesContent";
+requirejs.config({
+    baseUrl: "/scripts",
+    paths: {
+        simplemde: "lib/simplemde.min"
+    },
+    shim: {
+    	"simplemde": {
+    		exports: [
+    			"SimpleMDE", "CodeMirror"
+			]
+    	}
+    }
+});
 
-$(function() {
-	simplemde = new SimpleMDE({
+define("main", [
+		"require", "lib/domReady!", "lib/simplemde", "Datastore", "Throttler"
+	], function(require, domReady, SimpleMDE, CodeMirror, Datastore, Throttler) {
+
+	var NEW_TAB_NOTES_KEY = "newTabNotesContent";
+
+	var simplemde = new SimpleMDE({
 		autoDownloadFontAwesome: false,
 		indentWithTabs: false,
 		lineWrapping: true,
@@ -72,6 +87,7 @@ $(function() {
 		}, 2500);
 	});
 });
+
 
 var welcomeText = " \
 # Welcome to New Tab Notes! \n\n\
