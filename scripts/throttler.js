@@ -20,7 +20,13 @@ var Throttler = (function() {
 		}
 
 		this.waitingFuncTimeout = window.setTimeout(function() {
-			deferred.resolve(self.funcToThrottle.apply(self, passThroughArgs));
+			self.funcToThrottle.apply(self, passThroughArgs).done(function(result) {
+				deferred.resolve(result);
+			}).fail(function(result) {
+				deferred.reject(result);
+			}).progress(function(notification) {
+				deferred.notify(notification);
+			});
 		}, this.quietPeriod);
 
 		this.waitingFuncDeferred = deferred;

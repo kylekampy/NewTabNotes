@@ -1,9 +1,11 @@
 describe("Throttler", function() {
 	var throttler;
 	var funcToThrottle;
+	var throttledFuncDeferred;
 
 	beforeEach(function() {
-		funcToThrottle = sinon.stub();
+		throttledFuncDeferred = $.Deferred();
+		funcToThrottle = sinon.stub().returns(throttledFuncDeferred.promise());
 		throttler = new Throttler(20, funcToThrottle);
 	});
 
@@ -28,6 +30,8 @@ describe("Throttler", function() {
 			}).fail(function(reason) {
 				throw reason;
 			});
+
+			throttledFuncDeferred.resolve("yo dawg");
 		});
 
 		it("should pass along arguments", function(done) {
@@ -45,6 +49,44 @@ describe("Throttler", function() {
 			}).fail(function(reason) {
 				throw reason;
 			});
+
+			throttledFuncDeferred.resolve("yo dawg");
+		});
+
+		it("should resolve it's promise when the caller promise resolves", function(done) {
+			var promise = throttler.execute();
+
+			promise.done(function(result) {
+				chai.assert.result = "yo dawg";
+
+				done();
+			});
+
+			throttledFuncDeferred.resolve("yo dawg");
+		});
+
+		it("should reject it's promise when the caller promise rejects", function(done) {
+			var promise = throttler.execute();
+
+			promise.fail(function(result) {
+				chai.assert.result = "yo dawg";
+
+				done();
+			});
+
+			throttledFuncDeferred.reject("yo dawg");
+		});
+
+		it("should notify it's promise when the caller promise notifies", function(done) {
+			var promise = throttler.execute();
+
+			promise.progress(function(result) {
+				chai.assert.result = "yo dawg";
+
+				done();
+			});
+
+			throttledFuncDeferred.notify("yo dawg");
 		});
 	});
 });
