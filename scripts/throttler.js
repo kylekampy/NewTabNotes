@@ -4,9 +4,6 @@ var Throttler = (function() {
 	function Throttler(quietPeriod, funcToThrottle) {
 		this.quietPeriod = quietPeriod;
 		this.funcToThrottle = funcToThrottle;
-
-		this.waitingFuncTimeout;
-		this.waitingFuncDeferred;
 	}
 
 	Throttler.prototype.execute = function() {
@@ -16,7 +13,7 @@ var Throttler = (function() {
 
 		if (this.waitingFuncTimeout) {
 			window.clearTimeout(this.waitingFuncTimeout);
-			this.waitingFuncDeferred.reject("A new request has started")
+			this.waitingFuncDeferred.reject("A new request has started");
 		}
 
 		this.waitingFuncTimeout = window.setTimeout(function() {
@@ -31,7 +28,7 @@ var Throttler = (function() {
 
 		this.waitingFuncDeferred = deferred;
 		return deferred.promise();
-	}
+	};
 
 	return Throttler;
 })();

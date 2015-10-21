@@ -15,7 +15,7 @@ var Datastore = (function() {
 		});
 
 		return deferred.promise();
-	}
+	};
 
 	Datastore.prototype.load = function(key) {
 		var self = this;
@@ -26,7 +26,7 @@ var Datastore = (function() {
 		});
 
 		return deferred.promise();
-	}
+	};
 
 	return Datastore;
 })();

@@ -34,7 +34,7 @@ $(function() {
 		});
 	};
 
-	var throttler = new Throttler(500, saveFunc)
+	var throttler = new Throttler(500, saveFunc);
 
 	var throttledSaveFunc = function(key, content, callback) {
 		return throttler.execute(key, content, callback);
@@ -44,7 +44,7 @@ $(function() {
 
 	var reloadContents = function() {
 		datastore.load(NEW_TAB_NOTES_KEY).done(function(content) {
-			simplemde.value(content)
+			simplemde.value(content);
 		});
 	};
 
@@ -73,13 +73,11 @@ $(function() {
 	});
 });
 
-var welcomeText = " \
-# Welcome to New Tab Notes! \n\n\
-## Keep a synced set of notes with ease! \n\
-- Automatically saves when you are done typing \n\
-- Syncs seamlessly \n\
-- Periodically reloads if content gets stale and you haven't typed in a while\n\
-- Full markdown support \n\n\
-If you are unfamiliar with Markdown, check out a quick quide [here](https://guides.github.com/features/mastering-markdown/).\n\n\
-"
-
+var welcomeText = "" +
+	"# Welcome to New Tab Notes! " +
+	"## Keep a synced set of notes with ease" +
+	"- Automatically saves when you are done typin" +
+	"- Syncs seamlessl" +
+	"- Periodically reloads if content gets stale and you haven't typed in a whi" +
+	"- Full markdown support " +
+	"If you are unfamiliar with Markdown, check out a quick quide [here](https://guides.github.com/features/mastering-markdown/).";

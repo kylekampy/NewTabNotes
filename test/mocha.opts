@@ -1,0 +1,4 @@
+--require chai
+--require sinon
+--require jquery
+--reporter nyan
