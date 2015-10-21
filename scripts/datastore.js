@@ -1,12 +1,12 @@
-"use strict";
+var Datastore = (function() {
+	"use strict";
 
-class Datastore {
-	constructor(saveFunc, loadFunc) {
+	function Datastore(saveFunc, loadFunc) {
 		this.saveFunc = saveFunc;
 		this.loadFunc = loadFunc;
 	}
 
-	save(key, content) {
+	Datastore.prototype.save = function(key, content) {
 		var self = this;
 		var deferred = $.Deferred();
 
@@ -17,7 +17,7 @@ class Datastore {
 		return deferred.promise();
 	}
 
-	load(key) {
+	Datastore.prototype.load = function(key) {
 		var self = this;
 		var deferred = $.Deferred();
 
@@ -27,4 +27,6 @@ class Datastore {
 
 		return deferred.promise();
 	}
-}
+
+	return Datastore;
+})();

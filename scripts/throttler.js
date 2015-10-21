@@ -1,7 +1,7 @@
-"use strict";
+var Throttler = (function() {
+	"use strict";
 
-class Throttler {
-	constructor(quietPeriod, funcToThrottle) {
+	function Throttler(quietPeriod, funcToThrottle) {
 		this.quietPeriod = quietPeriod;
 		this.funcToThrottle = funcToThrottle;
 
@@ -9,7 +9,7 @@ class Throttler {
 		this.waitingFuncDeferred;
 	}
 
-	execute() {
+	Throttler.prototype.execute = function() {
 		var self = this;
 		var deferred = $.Deferred();
 		var passThroughArgs = arguments;
@@ -26,4 +26,6 @@ class Throttler {
 		this.waitingFuncDeferred = deferred;
 		return deferred.promise();
 	}
-}
+
+	return Throttler;
+})();
