@@ -11,6 +11,9 @@ module.exports = function(grunt) {
     			}
     		}
     	},
+        mocha_phantomjs: {
+            all: ['test/*.html']
+        },
     	uglify: {
     		options: {
     			banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
@@ -87,10 +90,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
     grunt.registerTask('default', [
     	'clean',
     	'jshint',
+        'mocha_phantomjs',
     	'uglify',
     	'cssmin',
     	'htmlmin',
