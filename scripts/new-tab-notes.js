@@ -3,28 +3,6 @@ var datastore;
 var NEW_TAB_NOTES_KEY = "newTabNotesContent";
 
 $(function() {
-	var saveAction = function(params) {
-		console.log("save action and args: ", params);
-	};
-
-	var loadAction = function(params) {
-		console.log("load action and args: ", params);
-	};
-
-	var saveToolbarIcon = {
-		name: "save",
-		action: saveAction,
-		className: "fa fa-floppy-o",
-		title: "Save",
-	};
-
-	var loadToolbarIcon = {
-		name: "load",
-		action: loadAction,
-		className: "fa fa-folder-open-o",
-		title: "Load",
-	};
-
 	simplemde = new SimpleMDE({
 		autoDownloadFontAwesome: false,
 		indentWithTabs: false,
@@ -34,13 +12,6 @@ $(function() {
 		parsingConfig: {
 			allowAtxHeaderWithoutSpace: true
 		},
-		toolbar: [
-			saveToolbarIcon, loadToolbarIcon,
-			"|", "bold", "italic", "strikethrough", "heading",
-			"|", "unordered-list", "ordered-list", "code", "quote",
-			"|", "link", "image",
-			"|", "preview", "guide"
-		],
 		status: false
 	});
 
