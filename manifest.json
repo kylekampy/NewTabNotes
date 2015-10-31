@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "New Tab Notes",
+  "name": "New Tab Notes (Alpha)",
   "author": "Kyle Kamperschroer",
   "version": "0.0.3",
-  "description": "A synced notepad where you need it",
+  "description": "A synced notepad where you need it!",
   "icons": {
     "250": "/images/icon250.png",
     "128": "/images/icon128.png",
