@@ -1,6 +1,6 @@
 var simplemde;
 var datastore;
-var NEW_TAB_NOTES_KEY = "newTabNotesContent";
+var NEW_TAB_NOTES_LATEST_KEY = "newTabNotesContent";
 
 $(function() {
 	var saveAction = function(params) {
@@ -72,7 +72,7 @@ $(function() {
 	var datastore = new Datastore(throttledSaveFunc, loadFunc);
 
 	var reloadContents = function() {
-		datastore.load(NEW_TAB_NOTES_KEY).done(function(content) {
+		datastore.load(NEW_TAB_NOTES_LATEST_KEY).done(function(content) {
 			simplemde.value(content);
 		});
 	};
@@ -80,7 +80,7 @@ $(function() {
 	reloadContents();
 
 	simplemde.codemirror.on("change", function(){
-	    datastore.save(NEW_TAB_NOTES_KEY, simplemde.value());
+	    datastore.save(NEW_TAB_NOTES_LATEST_KEY, simplemde.value());
 	});
 
 	var runningInterval;
