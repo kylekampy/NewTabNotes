@@ -23,3 +23,43 @@ html, body {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
+
+.bigger .cm-header-1 {
+	font-size: 250% !important;
+}
+
+.smaller .cm-header-1 {
+	font-size: 150% !important;
+}
+
+.bigger .cm-header-2 {
+	font-size: 210% !important;
+}
+
+.smaller .cm-header-2 {
+	font-size: 110% !important;
+}
+
+.bigger .cm-header-3 {
+	font-size: 175% !important;
+}
+
+.smaller .cm-header-3 {
+	font-size: 120% !important;
+}
+
+.bigger .cm-header-4 {
+	font-size: 160% !important;
+}
+
+.smaller .cm-header-4 {
+	font-size: 105% !important;
+}
+
+.bigger span {
+	font-size: 150% !important;
+}
+
+.smaller span {
+	font-size: 75% !important;
+}
