@@ -62,7 +62,7 @@ $(function() {
 		smallerTextElement.textContent = "A";
 		smallerTextElement.title = 'Make text smaller';
 		smallerTextElement.setAttribute('style', 'font-size: 8px; line-height: 30px;');
-		smallerTextElement.addEventListener('click', () => {
+		smallerTextElement.addEventListener('click', function() {
 			document.querySelector('body').setAttribute('class', 'smaller');
 			datastore.save(NEW_TAB_NOTES_SIZE_KEY, 'smaller');
 		});
@@ -71,7 +71,7 @@ $(function() {
 		normalTextElement.textContent = "A";
 		normalTextElement.title = 'Make text normal';
 		normalTextElement.setAttribute('style', 'font-size: 12px; line-height: 30px;');
-		normalTextElement.addEventListener('click', () => {
+		normalTextElement.addEventListener('click', function() {
 			document.querySelector('body').setAttribute('class', 'normal');
 			datastore.save(NEW_TAB_NOTES_SIZE_KEY, 'normal');
 		});
@@ -80,7 +80,7 @@ $(function() {
 		biggerTextElement.textContent = "A";
 		biggerTextElement.title = 'Make text bigger';
 		biggerTextElement.setAttribute('style', 'font-size: 16px; line-height: 30px;');
-		biggerTextElement.addEventListener('click', () => {
+		biggerTextElement.addEventListener('click', function() {
 			document.querySelector('body').setAttribute('class', 'bigger');
 			datastore.save(NEW_TAB_NOTES_SIZE_KEY, 'bigger');
 		});
@@ -89,7 +89,7 @@ $(function() {
 		document.querySelector('.editor-toolbar').appendChild(smallerTextElement);
 		document.querySelector('.editor-toolbar').appendChild(normalTextElement);
 		document.querySelector('.editor-toolbar').appendChild(biggerTextElement);
-	}
+	};
 
 	initTextSizingOptions();
 	reloadContents();
