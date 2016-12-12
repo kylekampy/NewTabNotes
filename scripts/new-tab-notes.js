@@ -1,6 +1,7 @@
 var simplemde;
 var datastore;
 var NEW_TAB_NOTES_KEY = "newTabNotesContent";
+var NEW_TAB_NOTES_SIZE_KEY = "newTabNotesSize";
 
 $(function() {
 	simplemde = new SimpleMDE({
@@ -45,9 +46,52 @@ $(function() {
 	var reloadContents = function() {
 		datastore.load(NEW_TAB_NOTES_KEY).done(function(content) {
 			simplemde.value(content);
+
+			datastore.load(NEW_TAB_NOTES_SIZE_KEY).done(function(size) {
+				document.querySelector('body').setAttribute('class', size);
+			});
 		});
 	};
 
+	var initTextSizingOptions = function() {
+		var separate = document.createElement('i');
+		separate.setAttribute('class', 'separator');
+		separate.textContent = '|';
+
+		var smallerTextElement = document.createElement('a');
+		smallerTextElement.textContent = "A";
+		smallerTextElement.title = 'Make text smaller';
+		smallerTextElement.setAttribute('style', 'font-size: 8px; line-height: 30px;');
+		smallerTextElement.addEventListener('click', () => {
+			document.querySelector('body').setAttribute('class', 'smaller');
+			datastore.save(NEW_TAB_NOTES_SIZE_KEY, 'smaller');
+		});
+
+		var normalTextElement = document.createElement('a');
+		normalTextElement.textContent = "A";
+		normalTextElement.title = 'Make text normal';
+		normalTextElement.setAttribute('style', 'font-size: 12px; line-height: 30px;');
+		normalTextElement.addEventListener('click', () => {
+			document.querySelector('body').setAttribute('class', 'normal');
+			datastore.save(NEW_TAB_NOTES_SIZE_KEY, 'normal');
+		});
+
+		var biggerTextElement = document.createElement('a');
+		biggerTextElement.textContent = "A";
+		biggerTextElement.title = 'Make text bigger';
+		biggerTextElement.setAttribute('style', 'font-size: 16px; line-height: 30px;');
+		biggerTextElement.addEventListener('click', () => {
+			document.querySelector('body').setAttribute('class', 'bigger');
+			datastore.save(NEW_TAB_NOTES_SIZE_KEY, 'bigger');
+		});
+
+		document.querySelector('.editor-toolbar').appendChild(separate);
+		document.querySelector('.editor-toolbar').appendChild(smallerTextElement);
+		document.querySelector('.editor-toolbar').appendChild(normalTextElement);
+		document.querySelector('.editor-toolbar').appendChild(biggerTextElement);
+	}
+
+	initTextSizingOptions();
 	reloadContents();
 
 	simplemde.codemirror.on("change", function(){
